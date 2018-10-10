@@ -1,65 +1,47 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Laravel Relationships Data
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This repo contains the migrations, seeders and factories to get up and running with various relationships types data quickly. Laravel provides support for many types relationships out-of-the-box. And when there is a need to play with any one of them to test something, I hate repeating the same stuff of creating migration and seeding the data before I can write code to actually test something.
 
-## About Laravel
+Here's how relationships are put here:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+|     Relationship Type    |   Model 1  |  Model 2 |
+|:------------------------:|:----------:|:--------:|
+|        One to One        |    User    |   Post   |
+|        One to Many       |    Post    | Comments |
+|       Many to Many       |    User    |   Role   |
+|     Has Many Through     |   Country  |   Phone  |
+|        Polymorphic       | Post/Video |   Like   |
+| Many to Many Polymorphic | Post/Video |    Tag   |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+And here is the ER Diagram image generated with [this lovely package](https://github.com/beyondcode/laravel-er-diagram-generator/) by [Marcel Pociot](https://twitter.com/marcelpociot).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+![Laravel Relationships Data](./graph.png "Laravel Relationships Data")
 
-## Learning Laravel
+## Laravel Nova Scaffolder
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+This repo also contains the necessary resource classes for each of the models to manage all the entities from the powerful Laravel Nova admin panel. Following are the steps to get you there in a few minutes:
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+1) Clone the repo:
+```
+git clone https://github.com/freshbitsweb/laravel-relationships-data.git [DIRECTORY_NAME]
+```
 
-## Laravel Sponsors
+2) Create `.env` file from the example file:
+```
+composer run-script post-root-package-install
+```
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+3) Setup .env variables (Mainly the Database details and App URL)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
+4) Install the dependencies and run migrations + seeders
+```
+composer install
+composer run-script post-create-project-cmd
+php artisan migrate --seed
+```
 
-## Contributing
+5) Install [Laravel Nova](https://nova.laravel.com/docs/1.0/installation.html#installing-nova)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6) Head over to [APP_URL]/nova. You will see something like this on the post details page for example.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Laravel Nova Post Details Page](./laravel-nova-post-details-page.png "Laravel Nova Post Details Page")
