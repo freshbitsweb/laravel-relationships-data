@@ -8,3 +8,7 @@ $factory->define(App\Video::class, function (Faker $faker) {
         'url' => $faker->url,
     ];
 });
+
+$factory->afterCreating(App\Video::class, function ($video, $faker) {
+    $video->likes()->saveMany(factory(App\Like::class, mt_rand(1, 3))->make());
+});

@@ -11,4 +11,6 @@ $factory->define(App\Post::class, function (Faker $faker) {
 
 $factory->afterCreating(App\Post::class, function ($post, $faker) {
     $post->comments()->saveMany(factory(App\Comment::class, 5)->make());
+
+    $post->likes()->saveMany(factory(App\Like::class, mt_rand(1, 3))->make());
 });
