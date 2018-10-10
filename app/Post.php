@@ -21,4 +21,12 @@ class Post extends Model
     {
         return $this->morphMany('App\Like', 'likeable');
     }
+
+    /**
+     * Get all of the tags for the post.
+     */
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
 }
