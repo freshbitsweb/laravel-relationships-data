@@ -43,4 +43,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role');
     }
+
+    /**
+     * The country that the user belong to.
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
 }
