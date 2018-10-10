@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Faker\Generator as Faker;
 
 /*
@@ -24,4 +25,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->afterCreating(App\User::class, function ($user, $faker) {
     $user->phone()->save(factory(App\Phone::class)->make());
+
+    $roles = Role::inRandomOrder()->limit(mt_rand(1, 3))->get(['id'])->pluck('id');
+    $user->roles()->attach($roles);
 });

@@ -35,4 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Phone');
     }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
 }
