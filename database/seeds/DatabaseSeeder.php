@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         factory('App\Post', 20)->create();
 
         factory('App\Video', 20)->create();
+
+        factory('App\Tag', 20)->create();
     }
 }
