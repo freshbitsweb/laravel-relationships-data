@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -52,7 +53,7 @@ class Comment extends Resource
             ID::make()->sortable(),
 
             Text::make('Content Excerpt', function () {
-                return str_limit($this->content, 100);
+                return Str::limit($this->content, 100);
             })->onlyOnIndex(),
 
             Trix::make('Content')
